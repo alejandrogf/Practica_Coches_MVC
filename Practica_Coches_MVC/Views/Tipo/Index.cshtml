@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Practica_Coches_MVC.Models.Tipo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1>Tipos de vehículos</h1>
+
+<p>
+    @Html.ActionLink("Nuevo Tipo", "Alta", null, new { @class = "btn btn-primary" })
+</p>
+<div class="panel panel-info">
+    <div class="panel-head">
+        <table class="table text-left table-bordered">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th>dddddd</th>
+                <th>dddddd</th>
+            </tr>
+        </table>
+    </div>
+    <table class="table table-bordered">
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.ActionLink("Ver Vehículos", "VerVehiculos", null, 
+                        new { id = item.idTipo }, new { @class = "btn btn-success" })
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "EditarTipo", new { id = item.idTipo }, new { @class = "btn btn-info" }) |
+                    @Html.ActionLink("Eliminar", "EliminarTipo", new { id = item.idTipo }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </table>
+
+    </div>
+
+
+
+
+

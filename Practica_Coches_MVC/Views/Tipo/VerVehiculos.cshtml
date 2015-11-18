@@ -1,0 +1,63 @@
+﻿@using Practica_Coches_MVC.Models
+@model IEnumerable<Practica_Coches_MVC.Models.Vehiculo>
+
+@{
+    ViewBag.Title = "VerVehiculos";
+    var vehiculo = ViewBag.vehiculo as List<Vehiculo>;
+    var nombreTipo = ViewData["nombreTipo"];
+    var idTipo = ViewData["idTipo"];
+}
+
+<h1>Listado de Vehículos</h1>
+<br/>
+<h2>Tipo: @nombreTipo</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Matricula)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Marca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Modelo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Coste)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tipo1.Nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in vehiculo) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Matricula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Marca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Modelo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Coste)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tipo1.Nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idVechiculo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idVechiculo }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idVechiculo })
+        </td>
+    </tr>
+}
+
+</table>
