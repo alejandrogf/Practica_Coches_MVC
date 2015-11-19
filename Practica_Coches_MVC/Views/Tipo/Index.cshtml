@@ -35,8 +35,15 @@
                     @Html.DisplayFor(modelItem => item.Descripcion)
                 </td>
                 <td>
-                    @Html.ActionLink("Ver Vehículos", "VerVehiculos", null, 
-                        new { id = item.idTipo }, new { @class = "btn btn-success" })
+                    @* Para pasarlo a otro controller:
+                        donde los campos q se pasan son:
+                        texto que se ve / nombre de la vista / controller de esa vista
+                        / elementos que envias / otros, por ejemplo clases
+                        @Html.ActionLink("Ver Vehículos", "IndexVehiculos", "Vehiculo",
+                        new {id = item.idTipo}, new {@class = "btn btn-success"})
+                     *@
+                    @Html.ActionLink("Ver Vehículos", "VerVehiculos", null,
+                        new {id = item.idTipo}, new {@class = "btn btn-success"})
                 </td>
                 <td>
                     @Html.ActionLink("Editar", "EditarTipo", new { id = item.idTipo }, new { @class = "btn btn-info" }) |

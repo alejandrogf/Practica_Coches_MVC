@@ -1,0 +1,56 @@
+﻿
+
+@using Practica_Coches_MVC.Models
+@model IEnumerable<Practica_Coches_MVC.Models.Vehiculo>
+@{
+    ViewBag.Title = "VerVehiculos";
+    var vehiculo = ViewBag.vehiculo as List<Vehiculo>;
+
+}
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Matricula)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Marca)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modelo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Coste)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo1.Descripcion)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in vehiculo)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Matricula)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Marca)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Modelo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Coste)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tipo1.Descripcion)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.idVechiculo }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.idVechiculo }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.idVechiculo })
+                </td>
+            </tr>
+        }
+
+    </table>

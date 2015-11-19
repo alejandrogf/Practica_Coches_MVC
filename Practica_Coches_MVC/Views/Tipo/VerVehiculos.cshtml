@@ -5,59 +5,112 @@
     ViewBag.Title = "VerVehiculos";
     var vehiculo = ViewBag.vehiculo as List<Vehiculo>;
     var nombreTipo = ViewData["nombreTipo"];
-    var idTipo = ViewData["idTipo"];
+    
 }
 
 <h1>Listado de Vehículos</h1>
 <br/>
-<h2>Tipo: @nombreTipo</h2>
+<h2>Categoría: @nombreTipo</h2>
+<input type="text" id="txtBusqueda" placeholder="Texto a buscar..." />
+<input type="button" id="btnBuscar" value="Buscar"/>
+<br /><br />
+<input type="radio" name="txtBusqueda" id="rbMatricula" value="Matricula" checked>Matrícula<br>
+<input type="radio" name="txtBusqueda" id="rbMarca" value="Marca">Marca<br>
+<input type="radio" name="txtBusqueda" id="rbModelo" value="Modelo">Modelo<br>
+<br /><br />
+@*data-toggle se usa para cambiar el estado de un objeto. En este caso cambia el estado de invisible a visible
+    Es una propiedad de bootstrapt y data-target indica quién es el receptor*@
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAdd">
+    Nuevo Vehículo
+</button>
+<br/><br/>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Matricula)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Marca)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Modelo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Coste)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tipo1.Nombre)
-        </th>
-        <th></th>
-    </tr>
+@* POP-UP para crear registros nuevos *@
+<div class="modal fade" id="modalAdd">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    @* aria-label son etiquetas de accesibilidad y data-dismiss son etiquetas
+                        que indican un elemento a cerrar *@
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Nuevo Vehículo</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <input type="text" id="txtMatricula" placeholder="Matrícula" />
+                    <br />
+                    <input type="text" id="txtMarca" placeholder="Marca" />
+                    <br />
+                    <input type="text" id="txtModelo" placeholder="Modelo" />
+                    <br />
+                    <input type="text" id="txtCoste" placeholder="Coste" />
+                    <br/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" id="btnGuardar" class="btn btn-primary">Guardar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
-@foreach (var item in vehiculo) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Matricula)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Marca)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Modelo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Coste)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tipo1.Nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.idVechiculo }) |
-            @Html.ActionLink("Details", "Details", new { id=item.idVechiculo }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idVechiculo })
-        </td>
-    </tr>
+<div id="listado">
+    @Html.Partial("_listadoVehiculo", Model)
+</div>
+
+
+@section MiJavaScript
+{
+    <script>
+        var idTipo = @ViewData["idTipo"];
+        function alta() {
+            var nuevovehiculo = {
+                matricula: $("#txtMatricula").val(),
+                marca: $("#txtMarca").val(),
+                modelo: $("#txtModelo").val(),
+                coste: $("#txtCoste").val(),
+                tipo: idTipo
+            };
+            var url = "@Url.Action("NuevoVehiculo")";
+            $.ajax({
+                url: url,
+                data: JSON.stringify(nuevovehiculo),
+                type: "POST",
+                headers: { "Content-Type": "application/json" },
+                dataType: "json",
+                success: function(res) {
+                    if (res.idVechiculo > 0) {
+                        //Otra opcion es hacerlo con javascript pero sigue siendo de bootstrap
+                        $("#modalAdd").modal('hide');
+                        $("#txtBusqueda").val("");
+                        buscar();
+                        alert("Guardado");
+
+                    } else {
+                        alert("Error al guardar");
+                    }
+                }
+            });
+        }
+
+        function buscar() {
+            var texto = $("#txtBusqueda").val();
+            var url = "@Url.Action("Buscar")" + "?idTipo=" + idTipo + "&txtBusqueda=" + texto;
+            if ($('#rbMatricula').prop('checked')) {
+                url += "&campoBusqueda=" + this.value();
+            } else if ($('#rbModelo').prop('checked')) {
+                url += "&campoBusqueda=" + this.value();
+            } else if ($('#rbMarca').prop('checked')) {
+                url += "&campoBusqueda=" + this.value();
+            }
+            $("#listado").load(encodeURI(url));
+        }
+
+        $("#btnGuardar").click(alta);
+        $("#btnBuscar").click(buscar);
+
+    </script>
 }
-
-</table>
