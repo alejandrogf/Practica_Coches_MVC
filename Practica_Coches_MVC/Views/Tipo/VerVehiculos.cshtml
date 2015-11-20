@@ -98,14 +98,18 @@
 
         function buscar() {
             var texto = $("#txtBusqueda").val();
-            var url = "@Url.Action("Buscar")" + "?idTipo=" + idTipo + "&txtBusqueda=" + texto;
-            if ($('#rbMatricula').prop('checked')) {
-                url += "&campoBusqueda=" + this.value();
-            } else if ($('#rbModelo').prop('checked')) {
-                url += "&campoBusqueda=" + this.value();
-            } else if ($('#rbMarca').prop('checked')) {
-                url += "&campoBusqueda=" + this.value();
-            }
+            var url = "@Url.Action("Buscar")" + 
+                      "?idTipo=" + idTipo + 
+                      "&txtBusqueda=" + texto + 
+                      "&campoBusqueda=" + $('input[name="txtBusqueda"]:checked').val();
+            
+            //if ($('#rbMatricula').prop('checked')) {
+            //    url += "&campoBusqueda=" + $('input[name="txtBusqueda"]:checked').val();
+            //} else if ($('#rbModelo').prop('checked')) {
+            //    url += "&campoBusqueda=" + $('input[name="txtBusqueda"]:checked').val();
+            //} else if ($('#rbMarca').prop('checked')) {
+            //    url += "&campoBusqueda=" + $('input[name="txtBusqueda"]:checked').val();
+            //}
             $("#listado").load(encodeURI(url));
         }
 

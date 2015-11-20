@@ -89,22 +89,22 @@ namespace Practica_Coches_MVC.Controllers
         [OutputCache(Duration = 0, VaryByParam = "*")]
         public ActionResult Buscar(int idTipo, string txtBusqueda, string campoBusqueda)
         {
-            var data = db.Vehiculo.Where(o => o.Tipo==idTipo);
+            var vehiculo = db.Vehiculo.Where(o => o.Tipo==idTipo);
 
             switch (campoBusqueda)
             {
                 case "Matricula":
-                    data = data.Where(o => o.Matricula.Contains(campoBusqueda));
+                    vehiculo = vehiculo.Where(o => o.Matricula.Contains(txtBusqueda));
                     break;
                 case "Marca":
-                    data = data.Where(o => o.Marca.Contains(campoBusqueda));
+                    vehiculo = vehiculo.Where(o => o.Marca.Contains(txtBusqueda));
                     break;
                 case "Modelo":
-                    data = data.Where(o => o.Modelo.Contains(campoBusqueda));
+                    vehiculo = vehiculo.Where(o => o.Modelo.Contains(txtBusqueda));
                     break;
             };
 
-            return PartialView("_listadoVehiculo", data.ToList());
+            return PartialView("_listadoVehiculo", vehiculo.ToList());
         }
 
 
