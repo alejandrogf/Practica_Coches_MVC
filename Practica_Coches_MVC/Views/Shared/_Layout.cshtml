@@ -34,6 +34,12 @@
 </div>
 
 <div class="container body-content">
+    @*Para saber si un objeto tiene información dentro de la sesión, basta con preguntar si es != null*@
+    @if (Session["horaLogin"] != null)
+    {
+        var horaLogin = (DateTime) Session["horaLogin"];
+        @String.Format("{0:t}", horaLogin);
+    }
     @RenderBody()
     <hr/>
     <footer>

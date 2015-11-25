@@ -25,6 +25,9 @@ namespace Practica_Coches_MVC.Controllers
             //con solo cambiarlo en el webconfig e indicarlo aquí ya funciona.        
             if (Membership.ValidateUser(modeloUsuario.Login,modeloUsuario.Password))
             {
+                //Session, TempData y [falta nombre] se acceden igual.
+                
+                Session["horaLogin"] = DateTime.Now;
                 FormsAuthentication.RedirectFromLoginPage(modeloUsuario.Login,false);
                 return null;
             }
@@ -32,7 +35,10 @@ namespace Practica_Coches_MVC.Controllers
         }
 
         public ActionResult LogOff()
-        {
+        {   //Limpia los datos.
+            Session.Clear();
+            //Cierra/elimina la sesión
+            Session.Abandon();
             FormsAuthentication.SignOut();
             return RedirectToAction("Index");
         }

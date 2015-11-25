@@ -17,6 +17,7 @@ namespace Practica_Coches_MVC.Controllers
         // GET: Tipo
         public ActionResult Index()
         {
+            
             var data = db.Tipo;
             return View(data);
         }
