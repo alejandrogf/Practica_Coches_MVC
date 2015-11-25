@@ -120,6 +120,7 @@
       <DependentUpon>ParqueMotorModel.edmx</DependentUpon>
       <LastGenOutput>ParqueMotorModel.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\ParqueMotorModel.edmx.sql" />
     <Content Include="Models\ParqueMotorModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ParqueMotorModel.edmx</DependentUpon>
@@ -142,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\TipoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -161,13 +163,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ParqueMotorModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Rol.cs">
+      <DependentUpon>ParqueMotorModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Tipo.cs">
+      <DependentUpon>ParqueMotorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Usuario.cs">
       <DependentUpon>ParqueMotorModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Vehiculo.cs">
       <DependentUpon>ParqueMotorModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seguridad\IdentityPersonalizado.cs" />
+    <Compile Include="Seguridad\PrincipalPersonalizado.cs" />
+    <Compile Include="Seguridad\ProveedorAutenticacion.cs" />
+    <Compile Include="Seguridad\ProveedorRol.cs" />
+    <Compile Include="Seguridad\UsuarioMembership.cs" />
+    <Compile Include="Utilidades\SeguridadUtilidades.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -177,6 +191,7 @@
     <Content Include="Views\Tipo\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\_listadoVehiculo.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

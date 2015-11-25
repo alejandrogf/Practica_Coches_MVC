@@ -8,6 +8,9 @@
         <EntityTypeShape EntityType="ParqueMotorModel.Tipo" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ParqueMotorModel.Vehiculo" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="ParqueMotorModel.FK_Vehiculo_Tipo" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ParqueMotorModel.Usuario" Width="1.5" PointX="5.625" PointY="1" />
+        <EntityTypeShape EntityType="ParqueMotorModel.Rol" Width="1.5" PointX="7.625" PointY="0.875" />
+        <AssociationConnector Association="ParqueMotorModel.UsuarioRol" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

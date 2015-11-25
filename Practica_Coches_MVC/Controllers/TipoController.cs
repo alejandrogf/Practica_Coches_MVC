@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using Practica_Coches_MVC.Models;
 
 namespace Practica_Coches_MVC.Controllers
-{
+{[Authorize]
     public class TipoController : Controller
     {
         //Conexión a la BD
@@ -102,8 +102,8 @@ namespace Practica_Coches_MVC.Controllers
                 case "Modelo":
                     vehiculo = vehiculo.Where(o => o.Modelo.Contains(txtBusqueda));
                     break;
-            };
-
+            }
+            ViewData["llamada"] = "busqueda";
             return PartialView("_listadoVehiculo", vehiculo.ToList());
         }
 

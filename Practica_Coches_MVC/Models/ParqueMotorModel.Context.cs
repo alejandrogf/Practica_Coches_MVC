@@ -27,5 +27,7 @@ namespace Practica_Coches_MVC.Models
     
         public virtual DbSet<Tipo> Tipo { get; set; }
         public virtual DbSet<Vehiculo> Vehiculo { get; set; }
+        public virtual DbSet<Usuario> UsuarioSet { get; set; }
+        public virtual DbSet<Rol> RolSet { get; set; }
     }
 }

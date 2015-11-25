@@ -4,11 +4,21 @@
 @model IEnumerable<Practica_Coches_MVC.Models.Vehiculo>
 @{
     ViewBag.Title = "VerVehiculos";
+    var vehiculo2 = Model;
     var vehiculo = ViewBag.vehiculo as List<Vehiculo>;
+    int n = 0;
 
 }
-    <table class="table">
-        <tr>
+@if (ViewData["llamada"]=="busqueda")
+{
+    vehiculo = (List<Vehiculo>) vehiculo2;
+}
+else
+{
+    vehiculo2 = vehiculo;
+}
+    @*<table class="table table-bordered">*@
+        @*<tr>
             <th>
                 @Html.DisplayNameFor(model => model.Matricula)
             </th>
@@ -25,9 +35,9 @@
                 @Html.DisplayNameFor(model => model.Tipo1.Descripcion)
             </th>
             <th></th>
-        </tr>
+        </tr>*@
 
-        @foreach (var item in vehiculo)
+        @*@foreach (var item in vehiculo)
         {
             <tr>
                 <td>
@@ -51,6 +61,26 @@
                     @Html.ActionLink("Delete", "Delete", new { id = item.idVechiculo })
                 </td>
             </tr>
-        }
+        }*@
+        @foreach (var item in vehiculo)
+        {
+            if (n % 3 == 0)
+            {
+                @Html.Raw("<div class=\"row\">")
+            }
 
-    </table>
+            <div class="col-md-4 table-bordered text-center table-hover">
+                
+                    <h2>@item.Matricula</h2>
+                    <h3>@item.Marca @item.Modelo</h3>
+                    <p>@item.Coste</p>
+                
+            </div>
+
+            if (++n % 3 == 0 || n == vehiculo.Count())
+            {
+                @Html.Raw("</div>")
+            }
+
+        }
+    @*</table>*@
